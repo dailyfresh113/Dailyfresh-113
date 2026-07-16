@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyFresh 113 | Kandy</title>
+    <style>
+        :root {
+            --primary-green: #2e7d32;
+            --dark-green: #1b5e20;
+            --accent-orange: #ff9800;
+            --tomato-red: #e53935;
+            --light-bg: #f4f7f4;
+            --dark-text: #2c3e50;
+            --card-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.93)), 
+                              url('https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&q=80&w=1200');
+            background-attachment: fixed;
+            background-size: cover;
+            padding-bottom: 50px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark-green), var(--primary-green));
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-container h1 {
+            font-size: 2.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .header-container p {
+            font-style: italic;
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+
+        .date-badge {
+            background-color: var(--tomato-red);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 12px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Promotions Section */
+        .promo-section {
+            margin-bottom: 35px;
+        }
+
+        .promo-title {
+            color: var(--tomato-red);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .promo-card {
+            background: white;
+            border: 2px solid #ffcdd2;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .promo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(229, 57, 53, 0.15);
+            border-color: var(--tomato-red);
+        }
+
+        .promo-tag {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: var(--tomato-red);
+            color: white;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-bottom-right-radius: 8px;
+            font-weight: bold;
+        }
+
+        .promo-name-si {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--dark-green);
+            margin-top: 10px;
+        }
+
+        .promo-name-en {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .promo-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--tomato-red);
+        }
+
+        .promo-unit {
+            font-size: 0.8rem;
+            color: #555;
+            font-weight: normal;
+        }
+
+        /* Shop Info Section */
+        .shop-info {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 35px;
+            border-top: 5px solid var(--primary-green);
+        }
+
+        .shop-info h2 {
+            color: var(--dark-green);
+            margin-bottom: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eaeea4;
+        }
+
+        .info-card strong {
+            color: var(--primary-green);
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        /* Interactive Multiple Items Cart System */
+        .calculator-box {
+            background: linear-gradient(135deg, #e8f5e9, #d0f0d2);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 35px;
+            border: 2px solid var(--primary-green);
+            box-shadow: var(--card-shadow);
+        }
+
+        .calculator-box h3 {
+            color: var(--dark-green);
+            margin-bottom: 5px;
+            font-size: 1.4rem;
+        }
+
+        .calc-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            align-items: end;
+            margin-top: 15px;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark-green);
+        }
+
+        .form-group select, .form-group input {
+            padding: 10px;
+            border: 1px solid #a5d6a7;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            outline: none;
+        }
+
+        optgroup {
+            font-weight: bold;
+            color: var(--dark-green);
+            background: #f4f7f4;
+        }
+
+        option {
+            font-weight: normal;
+            color: var(--dark-text);
+            background: white;
+        }
+
+        .add-btn {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .add-btn:hover {
+            background-color: var(--dark-green);
+        }
+
+        /* Cart Live Preview Table */
+        .cart-container {
+            margin-top: 25px;
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .cart-container h4 {
+            color: var(--dark-green);
+            margin-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 5px;
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .cart-table th, .cart-table td {
+            padding: 10px;
+            font-size: 0.95rem;
+        }
+
+        .cart-table th {
+            background: #f7f9f7;
+            text-align: left;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: var(--tomato-red);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cart-total-row {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: right;
+            color: var(--tomato-red);
+            padding: 10px 0;
+            border-top: 2px solid #eee;
+        }
+
+        .whatsapp-submit-btn {
+            display: block;
+            background-color: #25d366;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 14px 25px;
+            border-radius: 30px;
+            margin: 15px auto 0 auto;
+            width: 100%;
+            max-width: 400px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            transition: 0.2s;
+        }
+
+        .whatsapp-submit-btn:hover {
+            transform: scale(1.02);
+            background-color: #1ebd58;
+        }
+
+        /* Custom Tables Styling */
+        .table-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 35px;
+            overflow-x: auto;
+        }
+
+        .table-section h2 {
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e8f5e9;
+            padding-bottom: 8px;
+        }
+
+        .fast-moving-title {
+            color: var(--accent-orange) !important;
+            border-bottom-color: #fff3e0 !important;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 400px;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        th {
+            background-color: #f7f9f7;
+            font-weight: 600;
+            color: #555;
+        }
+
+        tr:hover {
+            background-color: #fafffa;
+        }
+
+        .price-tag {
+            font-weight: bold;
+            color: var(--primary-green);
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-container h1 { font-size: 2.2rem; }
+            .promo-grid { grid-template-columns: repeat(2, 1fr); }
+            .calc-form { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1>DailyFresh 113</h1>
+            <p>"Freshness is our promise & Good foods, good life"</p>
+            <div class="date-badge" id="current-date">Loading Date...</div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="promo-section">
+            <h2 class="promo-title">🔥 Today's Lowest Price Vegetable Promotions</h2>
+            <div class="promo-grid">
+                
+                <div class="promo-card">
+                    <div class="promo-tag">LOWEST PRICE</div>
+                    <div class="promo-name-si">රාබු</div>
+                    <div class="promo-name-en">Radish</div>
+                    <div class="promo-price">Rs. 160 <span class="promo-unit">/ kg</span></div>
+                </div>
+
+                <div class="promo-card">
+                    <div class="promo-tag">BEST VALUE</div>
+                    <div class="promo-name-si">පිපිඤ්ඤා (පිපි)</div>
+                    <div class="promo-name-en">Cucumber</div>
+                    <div class="promo-price">Rs. 180 <span class="promo-unit">/ kg</span></div>
+                </div>
+
+                <div class="promo-card">
+                    <div class="promo-tag">BEST VALUE</div>
+                    <div class="promo-name-si">කැකිරි</div>
+                    <div class="promo-name-en">Kekiri</div>
+                    <div class="promo-price">Rs. 180 <span class="promo-unit">/ kg</span></div>
+                </div>
+
+                <div class="promo-card">
+                    <div class="promo-tag">TOP DEAL</div>
+                    <div class="promo-name-si">ගෝවා</div>
+                    <div class="promo-name-en">Cabbage</div>
+                    <div class="promo-price">Rs. 220 <span class="promo-unit">/ kg</span></div>
+                </div>
+
+                <div class="promo-card">
+                    <div class="promo-tag">EVERYDAY STAPLE</div>
+                    <div class="promo-name-si">අල</div>
+                    <div class="promo-name-en">Potatoes</div>
+                    <div class="promo-price">Rs. 220 <span class="promo-unit">/ kg</span></div>
+                </div>
+
+                <div class="promo-card">
+                    <div class="promo-tag">BUDGET PICK</div>
+                    <div class="promo-name-si">වට්ටක්කා</div>
+                    <div class="promo-name-en">Pumpkin</div>
+                    <div class="promo-price">Rs. 220 <span class="promo-unit">/ kg</span></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="shop-info">
+            <h2>Premium Quality Direct From Farmers</h2>
+            <p>We source fresh Sri Lankan and Chinese vegetables straight from local growers. **No fixed limits:** feel free to buy exact weights by the kilogram or smaller custom weights under a kilo!</p>
+            <p style="margin-top: 8px; color: var(--tomato-red); font-weight: bold;">💼 Wholesale & Hotels: Contact us for special volume discounts and dedicated daily delivery options.</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <strong>📍 Kandy Retail Outlet:</strong><br>
+                    No 155, Anagarika Dharmapala Mawatha, Kandy.
+                </div>
+                <div class="info-card">
+                    <strong>🏢 Main Wholesale Store:</strong><br>
+                    No 113, Special Economic Center, Menikhumbura, Katugastota.
+                </div>
+                <div class="info-card">
+                    <strong>📞 Quick Contacts:</strong><br>
+                    Call: 0812209113 | WhatsApp: 0786747716
+                </div>
+            </div>
+        </div>
+
+        <div class="calculator-box">
+            <h3>🛒 Create Your Order List (ඇණවුම් ලැයිස්තුව සාදන්න)</h3>
+            <p style="font-size: 0.85rem; color: #555;">Choose items, set your specific weights, add them to your list, and send the full order via WhatsApp.</p>
+            
+            <div class="calc-form">
+                <div class="form-group">
+                    <label for="veg-select">Select Item</label>
+                    <select id="veg-select">
+                        <optgroup label="⭐ Fast-Moving & Essentials">
+                            <option value="230" data-name="බී ලුනු (Big Onions)">බී ලුනු (Big Onions) - Rs.230/kg</option>
+                            <option value="220" data-name="අල (Potatoes)">අල (Potatoes) - Rs.220/kg</option>
+                            <option value="580" data-name="තක්කාලී (Tomato)">තක්කාලී (Tomato) - Rs.580/kg</option>
+                            <option value="380" data-name="කැරට් (Carrot)">කැරට් (Carrot) - Rs.380/kg</option>
+                            <option value="400" data-name="බෝංචී (Beans)">බෝංචී (Beans) - Rs.400/kg</option>
+                            <option value="380" data-name="ලීක්ස් (Leeks)">ලීක්ස් (Leeks) - Rs.380/kg</option>
+                            <option value="220" data-name="ගෝවා (Cabbage)">ගෝවා (Cabbage) - Rs.220/kg</option>
+                            <option value="400" data-name="වම්බටු (Brinjal)">වම්බටු (Brinjal) - Rs.400/kg</option>
+                            <option value="1600" data-name="අමු මිරිස් (Green Chillies)">අමු මිරිස් (Green Chillies) - Rs.1600/kg</option>
+                            <option value="140" data-name="පොල් (Coconut)">පොල් (Coconut) - Rs.140/pc</option>
+                            <option value="240" data-name="බන්ඩක්කා (Okra)">බන්ඩක්කා (Okra) - Rs.240/kg</option>
+                            <option value="800" data-name="මාලුමිරිස් (Capsicum)">මාලුමිරිස් (Capsicum) - Rs.800/kg</option>
+                            <option value="520" data-name="දෙහි (Lime)">දෙහි (Lime) - Rs.520/kg</option>
+                        </optgroup>
+
+                        <optgroup label="🍆 Sri Lankan & Chinese Vegetables">
+                            <option value="2500" data-name="නයිමිරිස් (Nai Miris)">නයිමිරිස් (Nai Miris) - Rs.2500/kg</option>
+                            <option value="800" data-name="තුබ කරවිල (Spiny Gourd)">තුබ කරවිල (Spiny Gourd) - Rs.800/kg</option>
+                            <option value="600" data-name="සුදු කරවිල (White Bittergourd)">සුදු කරවිල (White Bittergourd) - Rs.600/kg</option>
+                            <option value="600" data-name="මල්ගෝවා (Cauliflower)">මල්ගෝවා (Cauliflower) - Rs.600/kg</option>
+                            <option value="600" data-name="තිබ්බුටු (Thibbatu)">තිබ්බුටු (Thibbatu) - Rs.600/kg</option>
+                            <option value="500" data-name="දබල (Winged Beans)">දබල (Winged Beans) - Rs.500/kg</option>
+                            <option value="460" data-name="එලබටු (Elabatu)">එලබටු (Elabatu) - Rs.460/kg</option>
+                            <option value="420" data-name="කට්බිට් (Beetroot)">කට්බිට් (Beetroot) - Rs.420/kg</option>
+                            <option value="420" data-name="ලංකා අල (Lanka Potatoes)">ලංකා අල (Lanka Potatoes) - Rs.420/kg</option>
+                            <option value="400" data-name="කොහිල දලු (Kohila Stalks)">කොහිල දලු (Kohila Stalks) - Rs.400/kg</option>
+                            <option value="360" data-name="වැටකොලු (Ridge Gourd)">වැටකොලු (Ridge Gourd) - Rs.360/kg</option>
+                            <option value="340" data-name="මෑ කරල් (Long Beans)">මෑ කරල් (Long Beans) - Rs.340/kg</option>
+                            <option value="320" data-name="ලුනුකොල (Spring Onion Leaves)">ලුනුකොල (Spring Onion Leaves) - Rs.320/kg</option>
+                            <option value="300" data-name="බටානා (Green Peas)">බටානා (Green Peas) - Rs.300/kg</option>
+                            <option value="300" data-name="ගකින් (Gherkin)">ගකින් (Gherkin) - Rs.300/kg</option>
+                            <option value="280" data-name="අලුකෙසෙල් (Ash Plantain)">අලුකෙසෙල් (Ash Plantain) - Rs.280/kg</option>
+                            <option value="280" data-name="කහ බතල (Yellow Sweet Potato)">කහ බතල (Yellow Sweet Potato) - Rs.280/kg</option>
+                            <option value="280" data-name="දම් බතල (Purple Sweet Potato)">දම් බතල (Purple Sweet Potato) - Rs.280/kg</option>
+                            <option value="260" data-name="නොකොල් (Knolkhol)">නොකොල් (Knolkhol) - Rs.260/kg</option>
+                            <option value="260" data-name="පතොල (Snake Gourd)">පතොල (Snake Gourd) - Rs.260/kg</option>
+                            <option value="260" data-name="කොහිල අල (Kohila Yam)">කොහිල අල (Kohila Yam) - Rs.260/kg</option>
+                            <option value="220" data-name="වට්ටක්කා (Pumpkin)">වට්ටක්කා (Pumpkin) - Rs.220/kg</option>
+                            <option value="180" data-name="පිපි (Cucumber)">පිපි (Cucumber) - Rs.180/kg</option>
+                            <option value="180" data-name="කැකිරි (Kekiri)">කැකිරි (Kekiri) - Rs.180/kg</option>
+                            <option value="160" data-name="රාබු (Radish)">රාබු (Radish) - Rs.160/kg</option>
+                        </optgroup>
+
+                        <optgroup label="🥬 Fresh Leafy Greens">
+                            <option value="80" data-name="කතුරු කොල (Kathurumurunga)">කතුරු කොල (Kathurumurunga) - Rs.80/bundle</option>
+                            <option value="70" data-name="මුකුනුවැන්න (Mukunuwenna)">මුකුනුවැන්න (Mukunuwenna) - Rs.70/bundle</option>
+                            <option value="70" data-name="කංකුං (Kankun)">කංකුං (Kankun) - Rs.70/bundle</option>
+                            <option value="50" data-name="ගොටුකොල (Gotukola)">ගොටුකොල (Gotukola) - Rs.50/bundle</option>
+                        </optgroup>
+
+                        <optgroup label="🍌 Fresh Fruits">
+                            <option value="460" data-name="අල්පොන්සු අඹ (Alphonso Mango)">අල්පොන්සු අඹ (Alphonso Mango) - Rs.460/kg</option>
+                            <option value="320" data-name="ඇම්බන් (Ambon Banana)">ඇම්බන් (Ambon Banana) - Rs.320/kg</option>
+                            <option value="280" data-name="පේර (Guava)">පේර (Guava) - Rs.280/kg</option>
+                            <option value="180" data-name="සීනි කෙසෙල් (Seeni Banana)">සීනි කෙසෙල් (Seeni Banana) - Rs.180/kg</option>
+                            <option value="180" data-name="ඇබුල්කෙසෙල් (Ambul Banana)">ඇබුල්කෙසෙල් (Ambul Banana) - Rs.180/kg</option>
+                            <option value="120" data-name="කොමඩු (Watermelon)">කොමඩු (Watermelon) - Rs.120/kg</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="weight-input">Weight / Qty</label>
+                    <input type="number" id="weight-input" step="0.01" placeholder="e.g. 0.5 or 2" min="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="unit-select">Unit</label>
+                    <select id="unit-select">
+                        <option value="kg">kg / Bundles / Items</option>
+                        <option value="g">Grams (g)</option>
+                    </select>
+                </div>
+                <button class="add-btn" onclick="addItemToOrder()">Add to List (+)</button>
+            </div>
+
+            <div class="cart-container" id="cart-panel">
+                <h4>📝 Your Selected Items (ඔබගේ ඇණවුම් ලැයිස්තුව):</h4>
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Weight/Qty</th>
+                            <th>Price (Rs.)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-rows">
+                        </tbody>
+                </table>
+                <div class="cart-total-row" id="cart-total-display">Total: Rs. 0</div>
+                <a href="#" class="whatsapp-submit-btn" id="wa-submit-btn" target="_blank">📲 Send Complete Order via WhatsApp</a>
+            </div>
+        </div>
+
+        <div class="table-section">
+            <h2 class="fast-moving-title">⭐ Fast-Moving Vegetables & Essentials</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item (සිංහල)</th>
+                        <th>English Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>බී ලුනු</strong></td><td>Big Onions</td><td class="price-tag">Rs. 230 / kg</td></tr>
+                    <tr><td><strong>අල</strong></td><td>Potatoes</td><td class="price-tag">Rs. 220 / kg</td></tr>
+                    <tr><td><strong>තක්කාලී</strong></td><td>Tomato</td><td class="price-tag">Rs. 580 / kg</td></tr>
+                    <tr><td><strong>කැරට්</strong></td><td>Carrot</td><td class="price-tag">Rs. 380 / kg</td></tr>
+                    <tr><td><strong>බෝංචී</strong></td><td>Beans</td><td class="price-tag">Rs. 400 / kg</td></tr>
+                    <tr><td><strong>ලීක්ස්</strong></td><td>Leeks</td><td class="price-tag">Rs. 380 / kg</td></tr>
+                    <tr><td><strong>ගෝවා</strong></td><td>Cabbage</td><td class="price-tag">Rs. 220 / kg</td></tr>
+                    <tr><td><strong>වම්බටු</strong></td><td>Brinjal</td><td class="price-tag">Rs. 400 / kg</td></tr>
+                    <tr><td><strong>අමු මිරිස්</strong></td><td>Green Chillies</td><td class="price-tag">Rs. 1,600 / kg</td></tr>
+                    <tr><td><strong>පොල්</strong></td><td>Coconut</td><td class="price-tag">Rs. 140 / item</td></tr>
+                    <tr><td><strong>බන්ඩක්කා</strong></td><td>Okra / Lady's Finger</td><td class="price-tag">Rs. 240 / kg</td></tr>
+                    <tr><td><strong>මාලුමිරිස්</strong></td><td>Capsicum</td><td class="price-tag">Rs. 800 / kg</td></tr>
+                    <tr><td><strong>දෙහි</strong></td><td>Lime</td><td class="price-tag">Rs. 520 / kg</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-section">
+            <h2>🍆 More Fresh Varieties (Sri Lankan & Chinese)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item (සිංහල)</th>
+                        <th>English Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>නයිමිරිස්</td><td>Nai Miris</td><td class="price-tag">Rs. 2,500 / kg</td></tr>
+                    <tr><td>තුබ කරවිල</td><td>Spiny Gourd</td><td class="price-tag">Rs. 800 / kg</td></tr>
+                    <tr><td>සුදු කරවිල</td><td>White Bittergourd</td><td class="price-tag">Rs. 600 / kg</td></tr>
+                    <tr><td>මල්ගෝවා</td><td>Cauliflower</td><td class="price-tag">Rs. 600 / kg</td></tr>
+                    <tr><td>තිබ්බුටු</td><td>Thibbatu</td><td class="price-tag">Rs. 600 / kg</td></tr>
+                    <tr><td>දබල</td><td>Winged Beans</td><td class="price-tag">Rs. 500 / kg</td></tr>
+                    <tr><td>එලබටු</td><td>Elabatu</td><td class="price-tag">Rs. 460 / kg</td></tr>
+                    <tr><td>කට්බිට්</td><td>Beetroot</td><td class="price-tag">Rs. 420 / kg</td></tr>
+                    <tr><td>ලංකා අල</td><td>Lanka Potatoes</td><td class="price-tag">Rs. 420 / kg</td></tr>
+                    <tr><td>කොහිල දලු</td><td>Kohila Stalks</td><td class="price-tag">Rs. 400 / kg</td></tr>
+                    <tr><td>වැටකොලු</td><td>Ridge Gourd</td><td class="price-tag">Rs. 360 / kg</td></tr>
+                    <tr><td>මෑ කරල්</td><td>Long Beans</td><td class="price-tag">Rs. 340 / kg</td></tr>
+                    <tr><td>ලුනුකොල</td><td>Spring Onion Leaves</td><td class="price-tag">Rs. 320 / kg</td></tr>
+                    <tr><td>බටානා</td><td>Green Peas</td><td class="price-tag">Rs. 300 / kg</td></tr>
+                    <tr><td>ගකින්</td><td>Gherkin</td><td class="price-tag">Rs. 300 / kg</td></tr>
+                    <tr><td>අලුකෙසෙල්</td><td>Ash Plantain</td><td class="price-tag">Rs. 280 / kg</td></tr>
+                    <tr><td>කහ බතල</td><td>Yellow Sweet Potato</td><td class="price-tag">Rs. 280 / kg</td></tr>
+                    <tr><td>දම් බතල</td><td>Purple Sweet Potato</td><td class="price-tag">Rs. 280 / kg</td></tr>
+                    <tr><td>නොකොල්</td><td>Knolkhol</td><td class="price-tag">Rs. 260 / kg</td></tr>
+                    <tr><td>පතොල</td><td>Snake Gourd</td><td class="price-tag">Rs. 260 / kg</td></tr>
+                    <tr><td>කොහිල අල</td><td>Kohila Yam</td><td class="price-tag">Rs. 260 / kg</td></tr>
+                    <tr><td>වට්ටක්කා</td><td>Pumpkin</td><td class="price-tag">Rs. 220 / kg</td></tr>
+                    <tr><td>පිපි</td><td>Cucumber</td><td class="price-tag">Rs. 180 / kg</td></tr>
+                    <tr><td>කැකිරි</td><td>Kekiri</td><td class="price-tag">Rs. 180 / kg</td></tr>
+                    <tr><td>රාබු</td><td>Radish</td><td class="price-tag">Rs. 160 / kg</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-section">
+            <h2>🥬 Fresh Leafy Greens</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Greens (සිංහල)</th>
+                        <th>English Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>කතුරු කොල</td><td>Kathurumurunga</td><td class="price-tag">Rs. 80 / bundle</td></tr>
+                    <tr><td>මුකුනුවැන්න</td><td>Mukunuwenna</td><td class="price-tag">Rs. 70 / bundle</td></tr>
+                    <tr><td>කංකුං</td><td>Kankun</td><td class="price-tag">Rs. 70 / bundle</td></tr>
+                    <tr><td>ගොටුකොල</td><td>Gotukola</td><td class="price-tag">Rs. 50 / bundle</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-section">
+            <h2>🍌 Fresh Fruits</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fruit (සිංහල)</th>
+                        <th>English Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>අල්පොන්සු අඹ</td><td>Alphonso Mango</td><td class="price-tag">Rs. 460 / kg</td></tr>
+                    <tr><td>ඇම්බන්</td><td>Ambon Banana</td><td class="price-tag">Rs. 320 / kg</td></tr>
+                    <tr><td>පේර</td><td>Guava</td><td class="price-tag">Rs. 280 / kg</td></tr>
+                    <tr><td>සීනි කෙසෙල්</td><td>Seeni Banana</td><td class="price-tag">Rs. 180 / kg</td></tr>
+                    <tr><td>ඇබුල්කෙසෙල්</td><td>Ambul Banana</td><td class="price-tag">Rs. 180 / kg</td></tr>
+                    <tr><td>කොමඩු</td><td>Watermelon</td><td class="price-tag">Rs. 120 / kg</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        // Set dynamic live date
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').innerText = "📅 " + new Date().toLocaleDateString('en-US', options);
+
+        // Cart State array
+        let orderItems = [];
+
+        function addItemToOrder() {
+            const select = document.getElementById('veg-select');
+            const itemName = select.options[select.selectedIndex].getAttribute('data-name');
+            const pricePerUnit = parseFloat(select.value);
+            const inputWeight = parseFloat(document.getElementById('weight-input').value);
+            const unit = document.getElementById('unit-select').value;
+
+            if (isNaN(inputWeight) || inputWeight <= 0) {
+                alert("කරුණාකර නිවැරදි බරක් හෝ ප්‍රමාණයක් ඇතුළත් කරන්න.");
+                return;
+            }
+
+            let calcWeight = inputWeight;
+            let displayWeight = inputWeight + " kg";
+            
+            // Check if the item selected is inside Leafy Greens (bundle logic representation)
+            const parentGroup = select.options[select.selectedIndex].parentNode.label;
+            if(parentGroup === "🥬 Fresh Leafy Greens") {
+                displayWeight = inputWeight + " Bundle(s)";
+            } else if (itemName.includes("පොල්")) {
+                displayWeight = inputWeight + " Pcs";
+            } else if (unit === 'g') {
+                displayWeight = inputWeight + " g";
+                calcWeight = inputWeight / 1000;
+            }
+
+            const itemTotalPrice = Math.round(pricePerUnit * calcWeight);
+
+            // Add item to basket state
+            orderItems.push({
+                name: itemName,
+                weightStr: displayWeight,
+                totalPrice: itemTotalPrice
+            });
+
+            // Reset input
+            document.getElementById('weight-input').value = '';
+
+            renderOrderList();
+        }
+
+        function removeCartItem(index) {
+            orderItems.splice(index, 1);
+            renderOrderList();
+        }
+
+        function renderOrderList() {
+            const panel = document.getElementById('cart-panel');
+            const tbody = document.getElementById('cart-rows');
+            const totalDisplay = document.getElementById('cart-total-display');
+            const waButton = document.getElementById('wa-submit-btn');
+
+            if (orderItems.length === 0) {
+                panel.style.display = 'none';
+                return;
+            }
+
+            panel.style.display = 'block';
+            tbody.innerHTML = '';
+            let orderGrandTotal = 0;
+            let waMessageText = "Hello DailyFresh 113! I want to place a new fresh produce order:\n\n";
+
+            orderItems.forEach((item, index) => {
+                orderGrandTotal += item.totalPrice;
+                waMessageText += `🟢 ${item.name} -> ${item.weightStr} (Rs. ${item.totalPrice})\n`;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${item.name}</strong></td>
+                    <td>${item.weightStr}</td>
+                    <td>Rs. ${item.totalPrice}</td>
+                    <td><button class="remove-btn" onclick="removeCartItem(${index})">❌</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            totalDisplay.innerText = `Total: Rs. ${orderGrandTotal}`;
+            waMessageText += `\n💰 Total Bill Amount: Rs. ${orderGrandTotal}\nPlease process and confirm my order!`;
+
+            // Connect parameters to final WhatsApp deep link
+            waButton.href = `https://wa.me/94786747716?text=${encodeURIComponent(waMessageText)}`;
+        }
+    </script>
+</body>
+</html>
